@@ -18,6 +18,10 @@ public class TodosListService {
         return repository.save(todosList);
     }
 
+    public TodosList findById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
     public List<TodosList> findAll() {
         return repository.findAll();
     }

@@ -28,7 +28,7 @@ public class TodosList {
     @Size(min = 1, max = 150)
     private String title;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "todos_list_id")
     private List<Todo> todos;
 

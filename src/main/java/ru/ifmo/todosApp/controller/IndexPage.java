@@ -1,7 +1,6 @@
 package ru.ifmo.todosApp.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import ru.ifmo.todosApp.service.TodosListService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class IndexPage extends Page {
@@ -27,21 +27,28 @@ public class IndexPage extends Page {
         this.todosListCredentialsValidator = todosListCredentialsValidator;
     }
 
-    @InitBinder
+    @InitBinder("todosListCredentials")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(todosListCredentialsValidator);
     }
 
+    @ModelAttribute("todosLists")
+    public List<TodosList> getTodosListsModelAttribute() {
+        return todosListService.findAll();
+    }
+
+    @ModelAttribute("newTodosListCredentials")
+    public TodosListCredentials getNewTodosListCredentialsModelAttribute() {
+        return new TodosListCredentials();
+    }
+
     @GetMapping({"", "/"})
-    public String index(Model model) {
-        model.addAttribute("todosLists", getTodosLists());
-        model.addAttribute("newTodosListCredentials", new TodosListCredentials());
+    public String index() {
         return "IndexPage";
     }
 
-
     @PostMapping("/createTodosList")
-    public String createPost(
+    public String createTodosList(
             @Valid @ModelAttribute("newTodosListCredentials") TodosListCredentials newTodosListCredentials,
             BindingResult bindingResult,
             HttpSession httpSession) {

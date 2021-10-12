@@ -1,7 +1,7 @@
 package ru.ifmo.todosApp.domain;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -17,7 +17,7 @@ import java.util.Date;
 )
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,4 +36,9 @@ public class Todo {
 
     @CreationTimestamp
     private Date creationTime;
+
+    public Todo(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

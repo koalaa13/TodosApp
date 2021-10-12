@@ -30,7 +30,7 @@
             <#list todosLists as todosList>
                 <div class="header">
                     <div class="title">${todosList.title}</div>
-                    <a class="edit-todos-list-link" href="/editTodosList?id=${todosList.id}"></a>
+                    <a class="see-todos-list-link" href="/todosList?id=${todosList.id}">See todos in list</a>
                 </div>
                 <div class="count-info">There are ${todosList.todos?size} todos in this list</div>
             </#list>

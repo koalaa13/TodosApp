@@ -3,12 +3,9 @@ package ru.ifmo.todosApp.form;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class TodosListCredentials {
+public class TodoCredentials {
     private String title;
-
-    public TodosListCredentials(String title) {
-        this.title = title;
-    }
+    private String content;
 
     public String getTitle() {
         return title;
@@ -16,5 +13,13 @@ public class TodosListCredentials {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
