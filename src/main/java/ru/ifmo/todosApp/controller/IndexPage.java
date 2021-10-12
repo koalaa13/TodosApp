@@ -3,10 +3,7 @@ package ru.ifmo.todosApp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.ifmo.todosApp.domain.TodosList;
 import ru.ifmo.todosApp.form.TodosListCredentials;
 import ru.ifmo.todosApp.form.validator.TodosListCredentialsValidator;
@@ -60,6 +57,14 @@ public class IndexPage extends Page {
         todosListService.save(todosList);
         putMessage(httpSession, "You added a new todos list named " + todosList.getTitle());
 
+        return "redirect:/";
+    }
+
+    @PostMapping("/deleteTodosList")
+    public String deleteTodosList(@RequestParam Long id,
+                                  HttpSession httpSession) {
+        todosListService.deleteById(id);
+        putMessage(httpSession, "You deleted todos list");
         return "redirect:/";
     }
 }

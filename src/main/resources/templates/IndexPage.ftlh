@@ -3,7 +3,7 @@
 <#import "commons.ftlh" as c>
 
 <@c.page>
-    <div class="create-todos-list form-box">
+    <div class="create-todos-list form-box" xmlns="http://www.w3.org/1999/html">
         <div class="header">
             Create a new todos list.
         </div>
@@ -11,7 +11,7 @@
             <form method="post" action="createTodosList">
                 <div class="field">
                     <div class="name">
-                        <label for="content">Todos list title</label>
+                        <label for="title">Todos list title</label>
                     </div>
                     <div class="value">
                         <input id="title" name="title">${newTodosListCredentials.title!}</input>
@@ -31,6 +31,10 @@
                 <div class="header">
                     <div class="title">${todosList.title}</div>
                     <a class="see-todos-list-link" href="/todosList?id=${todosList.id}">See todos in list</a>
+                    <form method="post" action="deleteTodosList">
+                        <input type="hidden" name="id" value="${todosList.id}">
+                        <input type="submit" class="delete-button" value="Delete todos list">
+                    </form>
                 </div>
                 <div class="count-info">There are ${todosList.todos?size} todos in this list</div>
             </#list>

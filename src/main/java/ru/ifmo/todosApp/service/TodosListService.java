@@ -25,4 +25,8 @@ public class TodosListService {
     public List<TodosList> findAll() {
         return repository.findAll();
     }
+
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 }
