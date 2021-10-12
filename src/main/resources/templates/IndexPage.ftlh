@@ -1,0 +1,39 @@
+<#-- @ftlvariable name="todosLists" type="ru.ifmo.todosApp.domain.TodosList[]" -->
+<#-- @ftlvariable name="newTodosListCredentials" type="ru.ifmo.todosApp.form.TodosListCredentials" -->
+<#import "commons.ftlh" as c>
+
+<@c.page>
+    <div class="create-todos-list form-box">
+        <div class="header">
+            Create a new todos list.
+        </div>
+        <div class="body">
+            <form method="post" action="createTodosList">
+                <div class="field">
+                    <div class="name">
+                        <label for="content">Todos list title</label>
+                    </div>
+                    <div class="value">
+                        <input id="title" name="title">${newTodosListCredentials.title!}</input>
+                    </div>
+                </div>
+                <div class="button-field">
+                    <input type="submit" value="Create todos list">
+                </div>
+            </form>
+        </div>
+    </div>
+    <#if todosLists?size == 0>
+        <h1>You have no todos yet.</h1>
+    <#else>
+        <div class="todos-lists-info">
+            <#list todosLists as todosList>
+                <div class="header">
+                    <div class="title">${todosList.title}</div>
+                    <a class="edit-todos-list-link" href="/editTodosList?id=${todosList.id}"></a>
+                </div>
+                <div class="count-info">There are ${todosList.todos?size} todos in this list</div>
+            </#list>
+        </div>
+    </#if>
+</@c.page>
