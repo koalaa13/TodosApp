@@ -38,6 +38,12 @@
                 <div class="todo-info">
                     <div class="title">${todo.title}</div>
                     <div class="content">${todo.content}</div>
+                    <#if !todo.done>
+                        <form class="todo-done" method="post" action="todoDone">
+                            <input type="hidden" name="todoId" value="${todo.id}">
+                            <input type="submit" class="todo-done-button" value="I did it!">
+                        </form>
+                    </#if>
                 </div>
             </#list>
         </div>

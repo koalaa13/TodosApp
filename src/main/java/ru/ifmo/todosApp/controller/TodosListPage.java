@@ -46,6 +46,12 @@ public class TodosListPage extends Page {
         return "TodosListPage";
     }
 
+    @PostMapping("/todoDone")
+    public String todoDone(@RequestParam Long todoId) {
+        todoService.todoDone(todoId);
+        return "redirect:/todosList?id=" + lastNeededId;
+    }
+
     @PostMapping("/createTodo")
     public String createTodo(@Valid @ModelAttribute TodoCredentials todoCredentials,
                              BindingResult bindingResult,

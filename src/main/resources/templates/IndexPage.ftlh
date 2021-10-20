@@ -30,7 +30,7 @@
             <#list todosLists as todosList>
                 <div class="header">
                     <div class="title">${todosList.title}</div>
-                    <a class="see-t odos-list-link" href="/todosList?id=${todosList.id}">See todos in list</a>
+                    <a class="see-todos-list-link" href="/todosList?id=${todosList.id}">See todos in list</a>
                     <form class="delete-todos-list" method="post" action="deleteTodosList">
                         <input type="hidden" name="id" value="${todosList.id}">
                         <input type="submit" class="delete-button" value="Delete todos list">

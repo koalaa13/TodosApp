@@ -21,4 +21,13 @@ public class TodoService {
     public List<Todo> findAll() {
         return repository.findAll();
     }
+
+    public void todoDone(Long id) {
+        Todo todo = repository.findById(id).orElse(null);
+        if (todo == null) {
+            return;
+        }
+        todo.setDone(true);
+        repository.save(todo);
+    }
 }
