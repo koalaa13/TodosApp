@@ -17,7 +17,7 @@
                                 <label for="title">Todo title</label>
                             </div>
                             <div class="value">
-                                <input id="title" name="title">${todoCredentials.title!}</input>
+                                <input id="title" name="title" value=${todoCredentials.title!}>
                             </div>
                         </div>
                         <div class="field">
@@ -25,7 +25,7 @@
                                 <label for="content">Todo content</label>
                             </div>
                             <div class="value">
-                                <input id="content" name="content">${todoCredentials.content!}</input>
+                                <input id="content" name="content" value=${todoCredentials.content!}>
                             </div>
                         </div>
                         <div class="button-field">

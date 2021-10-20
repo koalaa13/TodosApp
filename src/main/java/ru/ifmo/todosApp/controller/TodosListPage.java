@@ -15,6 +15,7 @@ import javax.validation.Valid;
 
 @Controller
 public class TodosListPage extends Page {
+    private static final String todoCredentialsName = "todoCredentials";
     private final TodoCredentialsValidator todoCredentialsValidator;
     private Long lastNeededId;
 
@@ -22,12 +23,17 @@ public class TodosListPage extends Page {
         this.todoCredentialsValidator = todoCredentialsValidator;
     }
 
-    @ModelAttribute("todoCredentials")
-    public TodoCredentials getTodoCredentials() {
-        return new TodoCredentials();
+    @ModelAttribute(todoCredentialsName)
+    public TodoCredentials getTodoCredentials(HttpSession httpSession) {
+        TodoCredentials credentials = (TodoCredentials) httpSession.getAttribute(todoCredentialsName);
+        httpSession.removeAttribute(todoCredentialsName);
+        if (credentials == null) {
+            return new TodoCredentials();
+        }
+        return credentials;
     }
 
-    @InitBinder("todoCredentials")
+    @InitBinder(todoCredentialsName)
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(todoCredentialsValidator);
     }
@@ -45,6 +51,7 @@ public class TodosListPage extends Page {
                              BindingResult bindingResult,
                              HttpSession httpSession) {
         if (bindingResult.hasErrors()) {
+            httpSession.setAttribute(todoCredentialsName, todoCredentials);
             putErrorMessage(httpSession, bindingResult.getAllErrors().get(0).getDefaultMessage());
             return "redirect:/todosList?id=" + lastNeededId;
         }

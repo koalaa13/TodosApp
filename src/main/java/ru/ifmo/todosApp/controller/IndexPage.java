@@ -15,6 +15,7 @@ import java.util.List;
 
 @Controller
 public class IndexPage extends Page {
+    private static final String newTodosListCredentialsName = "newTodosListCredentials";
     private final TodosListService todosListService;
     private final TodosListCredentialsValidator todosListCredentialsValidator;
 
@@ -24,7 +25,7 @@ public class IndexPage extends Page {
         this.todosListCredentialsValidator = todosListCredentialsValidator;
     }
 
-    @InitBinder("todosListCredentials")
+    @InitBinder(newTodosListCredentialsName)
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(todosListCredentialsValidator);
     }
@@ -34,9 +35,15 @@ public class IndexPage extends Page {
         return todosListService.findAll();
     }
 
-    @ModelAttribute("newTodosListCredentials")
-    public TodosListCredentials getNewTodosListCredentialsModelAttribute() {
-        return new TodosListCredentials();
+    @ModelAttribute(newTodosListCredentialsName)
+    public TodosListCredentials getNewTodosListCredentialsModelAttribute(
+            HttpSession httpSession) {
+        TodosListCredentials credentials = (TodosListCredentials) httpSession.getAttribute(newTodosListCredentialsName);
+        httpSession.removeAttribute(newTodosListCredentialsName);
+        if (credentials == null) {
+            return new TodosListCredentials();
+        }
+        return credentials;
     }
 
     @GetMapping({"", "/"})
@@ -46,10 +53,11 @@ public class IndexPage extends Page {
 
     @PostMapping("/createTodosList")
     public String createTodosList(
-            @Valid @ModelAttribute("newTodosListCredentials") TodosListCredentials newTodosListCredentials,
+            @Valid @ModelAttribute(newTodosListCredentialsName) TodosListCredentials newTodosListCredentials,
             BindingResult bindingResult,
             HttpSession httpSession) {
         if (bindingResult.hasErrors()) {
+            httpSession.setAttribute(newTodosListCredentialsName, newTodosListCredentials);
             putErrorMessage(httpSession, bindingResult.getAllErrors().get(0).getDefaultMessage());
             return "redirect:/";
         }

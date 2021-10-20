@@ -37,8 +37,11 @@ public class Todo {
     @CreationTimestamp
     private Date creationTime;
 
+    private Boolean done;
+
     public Todo(String title, String content) {
         this.title = title;
         this.content = content;
+        this.done = false;
     }
 }

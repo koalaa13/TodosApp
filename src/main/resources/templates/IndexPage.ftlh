@@ -14,7 +14,7 @@
                         <label for="title">Todos list title</label>
                     </div>
                     <div class="value">
-                        <input id="title" name="title">${newTodosListCredentials.title!}</input>
+                        <input type="text" id="title" name="title" value=${newTodosListCredentials.title!}>
                     </div>
                 </div>
                 <div class="button-field">
@@ -30,8 +30,8 @@
             <#list todosLists as todosList>
                 <div class="header">
                     <div class="title">${todosList.title}</div>
-                    <a class="see-todos-list-link" href="/todosList?id=${todosList.id}">See todos in list</a>
-                    <form method="post" action="deleteTodosList">
+                    <a class="see-t odos-list-link" href="/todosList?id=${todosList.id}">See todos in list</a>
+                    <form class="delete-todos-list" method="post" action="deleteTodosList">
                         <input type="hidden" name="id" value="${todosList.id}">
                         <input type="submit" class="delete-button" value="Delete todos list">
                     </form>
